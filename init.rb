@@ -1,3 +1,5 @@
+require_dependency 'html_head_hook_listener'
+
 Redmine::Plugin.register :redmine_volgau do
   name 'Redmine VolGAU'
   author 'Roman M. Yagodin'
