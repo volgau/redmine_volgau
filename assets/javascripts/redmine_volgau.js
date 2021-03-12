@@ -26,4 +26,4 @@
             applySelect2Partial (window.jql);
         }
     });
-});
+}) (jQuery, document);
