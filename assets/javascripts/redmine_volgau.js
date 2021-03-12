@@ -12,7 +12,7 @@
     }
 
     function isSelect2Installed () {
-        return (typeof (window.jql) === "function" && window.jql ().select2);
+        return (typeof (window.jql) === "function" && window.jql ().select2 != "undefined");
     }
 
     $(document).ready (function () {
