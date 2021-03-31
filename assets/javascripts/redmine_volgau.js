@@ -1,5 +1,26 @@
 (function ($, document) {
 
+    function insertStatusBadge (selector) {
+        $(selector).each (function () {
+            if ($(this).children ("span").length === 0) {
+                var issueStatusCssClass = $(this).closest(".issue").attr("class").split(" ").find (
+                    function (c) {
+                        if (c.startsWith("status-")) {
+                            return c;
+                        }
+                    }
+                );
+                var statusCssClass = typeof issueStatusCssClass != "undefined" ? issueStatusCssClass : "";
+                $(this).prepend ("<span class='status-badge status-badge-" + statusCssClass + "'></span>");
+            }
+        });
+    }
+
+    function applyStatusWrapper () {
+        insertStatusBadge ("table.issues td.status");
+        insertStatusBadge ("div.issue div.attributes div.status div.value");
+    }
+
     function applySelect2Partial ($) {
         $("#issue-form select#issue_assigned_to_id").select2 ({dropdownAutoWidth: 'true', width: '60%'});
         $("#issue-form select[id^='issue_custom_field_values']").select2 ({dropdownAutoWidth: 'true', width: '60%'});
@@ -16,12 +37,14 @@
     }
 
     $(document).ready (function () {
+        applyStatusBadges ();
         if (isSelect2Installed ()) {
             applySelect2 (window.jql);
         }
     });
 
     $(document).on ("ajax:complete ajaxSuccess", function (event, data, status, xhr) {
+        applyStatusWrapper ();
         if (isSelect2Installed ()) {
             applySelect2Partial (window.jql);
         }
