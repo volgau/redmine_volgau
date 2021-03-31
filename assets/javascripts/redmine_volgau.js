@@ -16,7 +16,7 @@
         });
     }
 
-    function applyStatusWrapper () {
+    function insertStatusBadges () {
         insertStatusBadge ("table.issues td.status");
         insertStatusBadge ("div.issue div.attributes div.status div.value");
     }
@@ -37,14 +37,14 @@
     }
 
     $(document).ready (function () {
-        applyStatusBadges ();
+        insertStatusBadges ();
         if (isSelect2Installed ()) {
             applySelect2 (window.jql);
         }
     });
 
     $(document).on ("ajax:complete ajaxSuccess", function (event, data, status, xhr) {
-        applyStatusWrapper ();
+        insertStatusBadges ();
         if (isSelect2Installed ()) {
             applySelect2Partial (window.jql);
         }
